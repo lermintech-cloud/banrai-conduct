@@ -1,0 +1,54 @@
+/* ธีมสว่างสไตล์แอปธนาคาร — แก้สีหลักที่ตัวแปรใน :root */
+:root{--bg:#eef4ff;--card:#fff;--tx:#0f1f3d;--mu:#5f6f8f;--bd:#dde7fb;--pri:#2563eb;--pri2:#06b6d4;--vio:#7c3aed;--gold:#ffb020;--ok:#059669;--wn:#d97706;--bad:#e11d48;--okb:#d1fae5;--wnb:#fef3c7;--badb:#ffe4e6;--mub:#e7eefc;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 'Sarabun','TH Sarabun New',sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--card);z-index:30}
+.side{position:fixed;left:0;top:0;bottom:0;width:264px;background:#fff;border-right:1px solid var(--bd);padding:calc(env(safe-area-inset-top,0px) + 18px) 14px 18px;z-index:40;display:flex;flex-direction:column;transition:transform .25s}
+.brand{display:flex;gap:11px;align-items:center;padding:4px 8px 16px;margin-bottom:10px}
+.logo{width:46px;height:46px;border-radius:14px;background:#fff;box-shadow:0 4px 14px rgba(37,99,235,.25);padding:3px;overflow:hidden}.logo img{width:100%;height:100%;object-fit:contain}
+.brand b{display:block;font-size:16px;color:var(--tx)}.brand small{color:var(--mu);font-size:12px}
+.nav button{display:flex;gap:12px;align-items:center;width:100%;border:0;background:none;color:#40507a;padding:12px 14px;border-radius:14px;font:inherit;font-weight:500;cursor:pointer;text-align:left;margin-bottom:4px}
+.nav button span{width:34px;height:34px;border-radius:11px;background:var(--mub);display:grid;place-items:center;font-size:17px}
+.nav button:hover{background:#f3f7ff}.nav button.on{background:linear-gradient(120deg,var(--pri),var(--pri2));color:#fff;box-shadow:0 6px 16px rgba(37,99,235,.3)}.nav button.on span{background:rgba(255,255,255,.22)}
+.side .foot{margin-top:auto;font-size:12px;color:var(--mu);padding:10px;background:var(--bg);border-radius:12px}
+.main{margin-left:264px;padding:26px 30px 44px;max-width:1240px}
+.top{display:none;position:sticky;top:env(safe-area-inset-top,0px);z-index:35;background:var(--card);border-bottom:1px solid var(--bd);padding:10px 14px;align-items:center;gap:10px}
+.top button{border:0;background:var(--mub);color:var(--tx);border-radius:12px;font-size:20px;width:42px;height:42px}
+.ov{display:none;position:fixed;inset:0;background:rgba(15,31,61,.45);z-index:38}
+@media(max-width:900px){.side{transform:translateX(-100%)}.side.open{transform:none;box-shadow:0 0 40px rgba(0,0,0,.25)}.side.open+.ov{display:block}.main{margin:0;padding:16px 14px 44px}.top{display:flex}}
+h1{font-size:23px;margin:0 0 4px}h3{margin:0 0 12px;font-size:16px}.sub{color:var(--mu);margin:0 0 18px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:20px;margin-bottom:16px;box-shadow:0 6px 20px rgba(37,99,235,.06)}
+.hero{background:linear-gradient(125deg,#2563eb 0%,#7c3aed 55%,#06b6d4 120%);color:#fff;border-radius:26px;padding:26px;margin-bottom:16px;display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center;position:relative;overflow:hidden;box-shadow:0 14px 34px rgba(37,99,235,.3)}
+.hero::after{content:"";position:absolute;right:-50px;top:-70px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.12)}
+.hero small{color:#dbe6ff}.hero .big{font-size:52px;font-weight:700;line-height:1.1;color:#fff}.hero .big span{color:#ffe08a}
+.hero .btn.ghost{background:rgba(255,255,255,.2);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:16px}.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.kpi{position:relative;background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:16px 16px 16px 74px;box-shadow:0 6px 20px rgba(37,99,235,.06)}
+.kpi::before{position:absolute;left:16px;top:16px;width:46px;height:46px;border-radius:15px;display:grid;place-items:center;font-size:22px}
+.kpi:nth-child(1)::before{content:'🧾';background:#dbeafe}.kpi:nth-child(2)::before{content:'🔔';background:#fef3c7}.kpi:nth-child(3)::before{content:'🏅';background:#d1fae5}.kpi:nth-child(4)::before{content:'🗂️';background:#ede9fe}
+.kpi small{color:var(--mu)}.kpi b{display:block;font-size:28px;line-height:1.2}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}.row label,.fm label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--mu);flex:1;min-width:160px}
+.fm{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.fm .w{grid-column:1/-1}
+input,select,textarea{font:inherit;color:var(--tx);background:#f7faff;border:1.5px solid var(--bd);border-radius:12px;padding:10px 12px;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--pri);box-shadow:0 0 0 3px rgba(37,99,235,.15)}button:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
+.btn{border:0;border-radius:12px;padding:10px 18px;font:inherit;font-weight:600;cursor:pointer;background:linear-gradient(120deg,var(--pri),#4f46e5);color:#fff;box-shadow:0 4px 12px rgba(37,99,235,.25)}
+.btn.gold{background:linear-gradient(120deg,#ffb020,#ff8a00);color:#3b2400;box-shadow:0 4px 12px rgba(255,138,0,.3)}.btn.red{background:var(--bad)}.btn.ghost{background:var(--mub);color:var(--pri);box-shadow:none}
+.tb{width:100%;border-collapse:collapse;font-size:14px}.tb th{text-align:left;color:var(--mu);font-weight:500;padding:8px;border-bottom:1px solid var(--bd)}.tb td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:top}
+.wrap{overflow-x:auto}.bd{display:inline-block;padding:3px 11px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap}
+.ok{background:var(--okb);color:var(--ok)}.wn{background:var(--wnb);color:var(--wn)}.bad{background:var(--badb);color:var(--bad)}.mu{background:var(--mub);color:var(--mu)}
+.bar{height:9px;border-radius:9px;background:var(--mub);overflow:hidden;min-width:80px}.bar i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--ok),#34d399)}
+.tr{display:flex;gap:10px;height:150px}.tr>div{flex:1;display:flex;flex-direction:column;text-align:center}.tb2{flex:1;display:flex;align-items:flex-end;gap:3px}.tb2 i{flex:1;border-radius:7px 7px 0 0;min-height:2px}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);transform:translateX(-50%);background:#0f1f3d;color:#fff;padding:12px 18px;border-radius:14px;z-index:60;max-width:90%;display:none}
+.lg .side,.lg .top{display:none}.lg .main{margin:0 auto;max-width:420px;padding-top:12vh}.lgi{width:120px;display:block;margin:0 auto 12px}
+/* กระดาษรายงาน A4 (ตามหนังสือราชการ: ซ้าย 3 ซม. ขวา 2 ซม. บน 2.5 ซม. ล่าง 2 ซม.) */
+.sheetwrap{overflow-x:auto;padding:4px}
+.paper{background:#fff;color:#000;width:210mm;min-height:297mm;margin:0 auto;padding:25mm 20mm 20mm 30mm;box-shadow:0 8px 30px rgba(15,31,61,.18);font-family:'TH Sarabun New','THSarabunNew','Sarabun',sans-serif;font-size:16pt;line-height:1.2}
+.paper p{margin:0 0 .25em}.paper .frame{width:100%;border-collapse:collapse}.paper .frame>*>tr>td{padding:0;border:0;font-weight:inherit}.sp1,.sp2{height:0}
+.ti{text-indent:2.5cm;text-align:justify}.mh{display:flex;align-items:center;margin-bottom:4px}.mh h1{flex:1;text-align:center;font-size:29pt;margin:0 1.5cm 0 0}
+.hr{border:0;border-top:1px solid #000;margin:2px 0 8px}.sgn{margin:24px 0 0 auto;width:9cm;text-align:center;page-break-inside:avoid}
+.box{border:1px solid #000;padding:6px 10px;margin:16px 0 0;page-break-inside:avoid}.box .sgn{margin-top:8px}
+.lt{display:flex;justify-content:space-between;align-items:flex-start}.ad{text-align:center;max-width:8cm}
+.ph{text-align:center;margin-bottom:8px}.ph h2{margin:6px 0;font-size:20pt}.phi{display:flex;justify-content:space-between;align-items:center}.pl{width:2.2cm;height:2.2cm;object-fit:contain}
+.pt{width:100%;border-collapse:collapse;margin:8px 0}.pt th,.pt td{border:1px solid #000;padding:2px 6px;text-align:left}.pt th{background:#eee}.c{text-align:center!important}
+.sg{display:flex;justify-content:space-around;gap:10px;margin-top:30px;text-align:center;page-break-inside:avoid}.sg div{flex:1}
