@@ -1,3 +1,5 @@
+@font-face{font-family:'TH Sarabun New';src:url(../assets/fonts/THSarabunNew.woff) format('woff');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'TH Sarabun New';src:url(../assets/fonts/THSarabunNew-Bold.woff) format('woff');font-weight:700;font-style:normal;font-display:swap}
 /* ธีมสว่างสไตล์แอปธนาคาร — แก้สีหลักที่ตัวแปรใน :root */
 :root{--bg:#eef4ff;--card:#fff;--tx:#0f1f3d;--mu:#5f6f8f;--bd:#dde7fb;--pri:#2563eb;--pri2:#06b6d4;--vio:#7c3aed;--gold:#ffb020;--ok:#059669;--wn:#d97706;--bad:#e11d48;--okb:#d1fae5;--wnb:#fef3c7;--badb:#ffe4e6;--mub:#e7eefc;color-scheme:light;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -43,9 +45,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--pri);box
 .lg .side,.lg .top{display:none}.lg .main{margin:0 auto;max-width:420px;padding-top:12vh}.lgi{width:120px;display:block;margin:0 auto 12px}
 /* กระดาษรายงาน A4 (ตามหนังสือราชการ: ซ้าย 3 ซม. ขวา 2 ซม. บน 2.5 ซม. ล่าง 2 ซม.) */
 .sheetwrap{overflow-x:auto;padding:4px}
-.paper{background:#fff;color:#000;width:210mm;min-height:297mm;margin:0 auto;padding:25mm 20mm 20mm 30mm;box-shadow:0 8px 30px rgba(15,31,61,.18);font-family:'TH Sarabun New','THSarabunNew','Sarabun',sans-serif;font-size:16pt;line-height:1.2}
-.paper p{margin:0 0 .25em}.paper .frame{width:100%;border-collapse:collapse}.paper .frame>*>tr>td{padding:0;border:0;font-weight:inherit}.sp1,.sp2{height:0}
-.ti{text-indent:2.5cm;text-align:justify}.mh{display:flex;align-items:center;margin-bottom:4px}.mh h1{flex:1;text-align:center;font-size:29pt;margin:0 1.5cm 0 0}
+.paper{background:#fff;color:#000;width:210mm;min-height:297mm;margin:0 auto;padding:15mm 20mm 20mm 30mm;box-shadow:0 8px 30px rgba(15,31,61,.18);font-family:'TH Sarabun New','TH SarabunPSK','THSarabunNew','Sarabun',sans-serif;font-size:16pt;font-weight:400;line-height:1.331}
+.paper p{margin:0}.paper .s6{margin-top:6pt}.paper .frame{width:100%;border-collapse:collapse}.paper .frame>*>tr>td{padding:0;border:0;font-weight:inherit}.sp1,.sp2{height:0}
+.ti{text-indent:2.5cm;text-align:justify}.mh{display:flex;align-items:center;margin-bottom:4px}.mh h1{flex:1;text-align:center;font-size:29pt;line-height:35pt;font-weight:700;margin:0 1.5cm 0 0}
 .hr{border:0;border-top:1px solid #000;margin:2px 0 8px}.sgn{margin:24px 0 0 auto;width:9cm;text-align:center;page-break-inside:avoid}
 .box{border:1px solid #000;padding:6px 10px;margin:16px 0 0;page-break-inside:avoid}.box .sgn{margin-top:8px}
 .lt{display:flex;justify-content:space-between;align-items:flex-start}.ad{text-align:center;max-width:8cm}
@@ -54,3 +56,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--pri);box
 .sg{display:flex;justify-content:space-around;gap:10px;margin-top:30px;text-align:center;page-break-inside:avoid}.sg div{flex:1}
 
 .credit{margin:0 0 0 264px;padding:0 30px 28px;font-size:13px;color:var(--mu)}@media(max-width:900px){.credit{margin:0;padding:0 14px 28px;text-align:center}}.lg .credit{margin:0;text-align:center}
+
+/* มาตรฐานงานสารบรรณ: จุดไข่ปลาหลังส่วนราชการ/ที่/วันที่/เรื่อง และช่องว่างลงนาม 3 บรรทัด */
+.mr{display:flex;align-items:baseline;margin-top:0}.mr b{white-space:nowrap}
+.mr .d{flex:1;border-bottom:1px dotted #000;margin-left:.2cm;padding:0 .2cm;min-height:1.331em}
+.sp3{height:4em}.box .sp3{height:2.7em}

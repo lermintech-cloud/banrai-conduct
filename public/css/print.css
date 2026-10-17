@@ -1,4 +1,4 @@
-/* print.css — พิมพ์ A4 มาตรฐานงานสารบรรณ ฟอนต์ TH Sarabun New 16pt
+/* print.css — พิมพ์ A4 มาตรฐานงานสารบรรณ ฟอนต์ TH Sarabun New 16pt ขอบบน 1.5 ล่าง 2 ซ้าย 3 ขวา 2 ซม.
    @page margin:0 เพื่อไม่ให้เบราว์เซอร์พิมพ์วันที่/URL ติดกระดาษ ขอบกระดาษใช้ตัวคั่น .sp1/.sp2 (ซ้ำทุกหน้า) และ padding ซ้าย-ขวา */
 @media print{
   @page{size:A4;margin:0}
@@ -10,7 +10,7 @@
   .sheetwrap{overflow:visible!important;padding:0!important}
   .paper{width:auto!important;min-height:0!important;margin:0!important;box-shadow:none!important;padding:0 20mm 0 30mm!important;font-size:16pt!important}
   .paper .frame thead{display:table-header-group}.paper .frame tfoot{display:table-footer-group}
-  .sp1{height:25mm}.sp2{height:20mm}
+  .sp1{height:15mm}.sp2{height:20mm}
   .pt thead{display:table-header-group}.pt tr{page-break-inside:avoid}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
