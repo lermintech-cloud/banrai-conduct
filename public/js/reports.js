@@ -21,7 +21,7 @@ function rep(sid){M(head('รายงาน','เอกสารตามรู
 <p style="margin-top:12px"><button class="btn gold" onclick="prt()">🖨️ พิมพ์ / บันทึก PDF</button> <small style="color:var(--mu)">ในหน้าต่างพิมพ์ เลือกปลายทาง “บันทึกเป็น PDF” · ขนาด A4 · ไม่ต้องติ๊ก “ส่วนหัวและส่วนท้าย”</small></p></div><div class="sheetwrap"><div class="paper" id="pp"></div></div>`);
 if(typeof sid=='string')$('#rs').value=sid;$('#rr').innerHTML=recOpts($('#rs').value);ru()}
 function ru(){const t=$('#rt').value;document.querySelectorAll('.row label[class*="f-"]').forEach(e=>e.style.display=e.classList.contains('f-'+t)?'':'none');gen()}
-function prt(){const o=document.title;document.title='รายงาน_'+D.cfg.school+'_'+today();window.onafterprint=()=>{document.title=o};window.print()}
+function prt(){const o=document.title;document.title=D.cfg.school+'_'+today();window.onafterprint=()=>{document.title=o};window.print()}
 function pick(){const s=D.st.find(x=>x.id==$('#rs').value);const ids=[...$('#rr').selectedOptions].map(o=>o.value);let L=s?D.rc.filter(r=>r.sid==s.id&&r.ty=='c'):[];if(ids.length)L=L.filter(r=>ids.includes(r.id));return[s,L.sort((a,b)=>a.d.localeCompare(b.d))]}
 function memo(s,L,dt,no){const k=sc(s.id),tot=L.reduce((a,r)=>a+r.pts,0);return `<div class="mh">${gar('1.5cm')}<h1>บันทึกข้อความ</h1></div>
 <p><b>ส่วนราชการ</b> ${esc(D.cfg.school)} ${esc(D.cfg.area)}</p>
