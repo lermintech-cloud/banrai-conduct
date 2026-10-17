@@ -10,6 +10,7 @@
 | `public/js/app.js` | แดชบอร์ด ฟอร์มบันทึก ทะเบียนนักเรียน ตั้งค่า |
 | `public/js/history.js` | ประวัติบันทึก ส่งออก CSV กราฟสถิติ |
 | `public/js/reports.js` | เอกสารราชการ: บันทึกข้อความ, หนังสือแจ้งผู้ปกครอง, ตารางรายงาน |
+| `public/js/pdf.js` | สร้างไฟล์ PDF + หน้าตัวอย่าง |
 | `public/js/api.js` | เชื่อมต่อฐานข้อมูล + หน้าเข้าสู่ระบบ |
 | `public/assets/` | โลโก้โรงเรียน, ตราครุฑ |
 | `functions/api/[[path]].js` | API (Cloudflare Pages Functions) |
@@ -56,7 +57,9 @@ npx wrangler pages secret put TEACHER_PASSWORD --project-name banrai-conduct
 ```
 
 ## พิมพ์/บันทึก PDF
-เมนู รายงาน → เลือกประเภท → ปุ่ม “พิมพ์ / บันทึก PDF” → ปลายทาง **บันทึกเป็น PDF** (หรือเลือกเครื่องพิมพ์) · ขนาด A4 · มาตราส่วน 100% (ค่าเริ่มต้น)
+เมนู รายงาน → เลือกประเภทเอกสารและ **ตราสัญลักษณ์ (ตราครุฑ / ตราโรงเรียน)**
+- ปุ่ม **พิมพ์**: เปิดหน้าต่างพิมพ์ของเบราว์เซอร์ · ขนาด A4 · มาตราส่วน 100%
+- ปุ่ม **PDF**: สร้างไฟล์ PDF ให้ดูตัวอย่างทีละหน้า (ใช้บนมือถือได้) แล้วกดดาวน์โหลด (ต้องต่ออินเทอร์เน็ตเพื่อโหลดตัวสร้าง PDF)
 ถ้าต้องการเลขอารบิก ให้ยกเลิกติ๊ก “เลขไทย”
 
 ## ข้อควรรู้
@@ -73,3 +76,7 @@ npx wrangler pages secret put TEACHER_PASSWORD --project-name banrai-conduct
 เปิด D1 → Console → รัน: `CREATE TABLE IF NOT EXISTS teachers(id TEXT PRIMARY KEY,name TEXT NOT NULL,cls TEXT,pin TEXT UNIQUE);` แล้วอัปโหลดไฟล์ใหม่ขึ้น GitHub
 
 **อัปเกรดเพิ่มเติม (คอลัมน์เพศ):** ใน D1 Console รัน `ALTER TABLE students ADD COLUMN sex TEXT;` (รันครั้งเดียว ก่อนอัปโหลดไฟล์ใหม่)
+
+
+---
+พัฒนาโดย ครูเฉลิมพล จันทร์แดง โรงเรียนบ้านไร่

@@ -4,6 +4,7 @@
   @page{size:A4;margin:0}
   html,body{background:#fff!important;padding:0!important;margin:0!important}
   body::before,.side,.top,.ov,.noprint,.toast{display:none!important}
+  #pv,.credit{display:none!important}
   .main>h1,.main>.sub{display:none!important}
   .main{margin:0!important;padding:0!important;max-width:none!important}
   .sheetwrap{overflow:visible!important;padding:0!important}

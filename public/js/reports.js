@@ -3,10 +3,12 @@ const MON=['มกราคม','กุมภาพันธ์','มีนา�
 const fmtL=d=>{const x=new Date(d);return x.getDate()+' '+MON[x.getMonth()]+' '+(x.getFullYear()+543)};
 const DOT='......................................';
 const frame=h=>`<table class="frame"><thead><tr><td><div class="sp1"></div></td></tr></thead><tbody><tr><td>${h}</td></tr></tbody><tfoot><tr><td><div class="sp2"></div></td></tr></tfoot></table>`;
-const gar=h=>`<img src="assets/garuda.jpg" style="height:${h}" alt="ตราครุฑ">`;
+let EMB='g';try{EMB=localStorage.getItem('emb')||'g'}catch(e){}
+const gar=h=>EMB=='s'?`<img src="assets/logo.png" style="height:${h}" alt="ตราโรงเรียน">`:`<img src="assets/garuda.jpg" style="height:${h}" alt="ตราครุฑ">`;
+function setEmb(v){EMB=v;try{localStorage.setItem('emb',v)}catch(e){}gen()}
 const one=(role,name)=>`<div class="sgn">ลงชื่อ ${DOT}<br>( ${esc(name||DOT)} )<br>${role}</div>`;
 const sg=l=>`<div class="sg">${l.map(x=>`<div>ลงชื่อ ${DOT}<br>( ${esc(x[1]||DOT)} )<br>${x[0]}</div>`).join('')}</div>`;
-const ph=t=>`<div class="ph"><div class="phi"><img class="pl" src="assets/logo.png" alt="">${gar('2.2cm')}<span class="pl"></span></div><b>${esc(D.cfg.school)}</b><br>${esc(D.cfg.area)}<h2>${t}</h2>ภาคเรียนที่ ${esc(D.cfg.term)}</div>`;
+const ph=t=>`<div class="ph"><div class="phi" style="justify-content:center">${gar('2.4cm')}</div><b>${esc(D.cfg.school)}</b><br>${esc(D.cfg.area)}<h2>${t}</h2>ภาคเรียนที่ ${esc(D.cfg.term)}</div>`;
 const lvn=r=>r.ty=='c'?R[r.lv].n:'เพิ่มคะแนน';
 const recT=L=>`<table class="pt"><thead><tr><th class="c">ที่</th><th>วันที่</th><th>รายการ</th><th class="c">ขั้น</th><th class="c">คะแนน</th><th>หลักฐาน/ผู้บันทึก</th></tr></thead><tbody>${L.map((r,i)=>`<tr><td class="c">${i+1}</td><td>${fmtL(r.d)}</td><td>${esc(r.item)}</td><td class="c">${lvn(r).replace('ขั้น','')}</td><td class="c">${r.ty=='c'?'-':'+'}${r.pts}</td><td>${esc(r.note)} ${esc(r.by)}</td></tr>`).join('')||'<tr><td colspan="6" class="c">ไม่มีรายการ</td></tr>'}</tbody></table>`;
 function recOpts(sid){return D.rc.filter(r=>r.sid==sid&&r.ty=='c').sort((a,b)=>b.d.localeCompare(a.d)).map(r=>`<option value="${r.id}" selected>${fmt(r.d)} · ${esc(r.item)} (-${r.pts})</option>`).join('')}
@@ -16,10 +18,11 @@ function rep(sid){M(head('รายงาน','เอกสารตามรู
 <label class="f-c">ชั้น<select id="rc" onchange="gen()">${clsList().map(x=>`<option>${esc(x)}</option>`).join('')}</select></label>
 <label class="f-m f-p">รายการความผิดที่ระบุ<select id="rr" multiple size="3" onchange="gen()"></select></label>
 <label class="f-m f-p">เลขที่หนังสือ<input id="rn" value="${esc(D.cfg.pre)}" oninput="gen()"></label>
+<label>ตราสัญลักษณ์<select id="re" onchange="setEmb(this.value)"><option value="g">ตราครุฑ</option><option value="s">ตราโรงเรียน</option></select></label>
 <label>ลงวันที่<input type="date" id="rd" value="${today()}" onchange="gen()"></label>
 <label style="flex:0;min-width:120px"><span><input type="checkbox" id="th" checked onchange="gen()" style="width:auto"> เลขไทย</span></label></div>
-<p style="margin-top:12px"><button class="btn gold" onclick="prt()">🖨️ พิมพ์ / บันทึก PDF</button> <small style="color:var(--mu)">ในหน้าต่างพิมพ์ เลือกปลายทาง “บันทึกเป็น PDF” · ขนาด A4 · ไม่ต้องติ๊ก “ส่วนหัวและส่วนท้าย”</small></p></div><div class="sheetwrap"><div class="paper" id="pp"></div></div>`);
-if(typeof sid=='string')$('#rs').value=sid;$('#rr').innerHTML=recOpts($('#rs').value);ru()}
+<p style="margin-top:12px"><button class="btn gold" onclick="prt()">🖨️ พิมพ์</button> <button class="btn" onclick="pdf()">📄 PDF (ดูตัวอย่าง/ดาวน์โหลด)</button><br><small style="color:var(--mu)">ปุ่มพิมพ์: เลือก A4 และไม่ต้องติ๊ก “ส่วนหัวและส่วนท้าย” · ปุ่ม PDF: สร้างไฟล์ให้ดูตัวอย่างก่อน (ใช้บนมือถือได้) แล้วกดดาวน์โหลด</small></p></div><div class="sheetwrap"><div class="paper" id="pp"></div></div>`);
+$('#re').value=EMB;if(typeof sid=='string')$('#rs').value=sid;$('#rr').innerHTML=recOpts($('#rs').value);ru()}
 function ru(){const t=$('#rt').value;document.querySelectorAll('.row label[class*="f-"]').forEach(e=>e.style.display=e.classList.contains('f-'+t)?'':'none');gen()}
 function prt(){const o=document.title;document.title=D.cfg.school+'_'+today();window.onafterprint=()=>{document.title=o};window.print()}
 function pick(){const s=D.st.find(x=>x.id==$('#rs').value);const ids=[...$('#rr').selectedOptions].map(o=>o.value);let L=s?D.rc.filter(r=>r.sid==s.id&&r.ty=='c'):[];if(ids.length)L=L.filter(r=>ids.includes(r.id));return[s,L.sort((a,b)=>a.d.localeCompare(b.d))]}
