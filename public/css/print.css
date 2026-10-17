@@ -3,7 +3,7 @@
 @media print{
   @page{size:A4;margin:0}
   html,body{background:#fff!important;padding:0!important;margin:0!important}
-  body::before,.side,.top,.ov,.noprint,.toast{display:none!important}
+  body::before,.side,.top,.ov,.noprint,.toast,.main>h1{display:none!important}
   .main{margin:0!important;padding:0!important;max-width:none!important}
   .sheetwrap{overflow:visible!important;padding:0!important}
   .paper{width:auto!important;min-height:0!important;margin:0!important;box-shadow:none!important;padding:0 20mm 0 30mm!important;font-size:16pt!important}

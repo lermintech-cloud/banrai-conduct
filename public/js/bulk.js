@@ -1,13 +1,28 @@
 // นำเข้านักเรียน/ครูทีละหลายคน (วางจาก Excel หรือเลือกไฟล์ CSV) + ทะเบียนครู
-const BK={s:{t:'นักเรียน',h:'รหัส, ชื่อ-สกุล, ชั้น',ph:'1001,เด็กชายสมชาย ใจดี,ป.6/1\n1002,เด็กหญิงมาลี สุขสม,ป.6/1',tpl:[['รหัส','ชื่อ-สกุล','ชั้น'],['1001','เด็กชายสมชาย ใจดี','ป.6/1']]},t:{t:'ครู',h:'ชื่อ-สกุล, ชั้นที่ปรึกษา, PIN (เว้นว่างเพื่อให้ระบบสุ่ม)',ph:'ครูสมศรี ใจงาม,ป.6/1\nครูสมชาย ดีมาก,ป.5/1,482913',tpl:[['ชื่อ-สกุล','ชั้นที่ปรึกษา','PIN'],['ครูสมศรี ใจงาม','ป.6/1','']]}};
+const BK={s:{t:'นักเรียน',h:'ชั้น, ห้อง, เลขประจำตัวนักเรียน, เพศ, คำนำหน้าชื่อ, ชื่อ, นามสกุล',ph:'ป.6,1,1001,ชาย,เด็กชาย,สมชาย,ใจดี\nป.6,1,1002,หญิง,เด็กหญิง,มาลี,สุขสม',tpl:[['ชั้น','ห้อง','เลขประจำตัวนักเรียน','เพศ','คำนำหน้าชื่อ','ชื่อ','นามสกุล'],['ป.6','1','1001','ชาย','เด็กชาย','สมชาย','ใจดี'],['ป.6','1','1002','หญิง','เด็กหญิง','มาลี','สุขสม']]},t:{t:'ครู',h:'ชื่อ-สกุล, ชั้นที่ปรึกษา, PIN (เว้นว่างเพื่อให้ระบบสุ่ม)',ph:'ครูสมศรี ใจงาม,ป.6/1\nครูสมชาย ดีมาก,ป.5/1,482913',tpl:[['ชื่อ-สกุล','ชั้นที่ปรึกษา','PIN'],['ครูสมศรี ใจงาม','ป.6/1','']]}};
 function bulkUI(k){const b=BK[k];return `<details style="margin-top:14px" open><summary><b>นำเข้า${b.t}ทีละหลายคน</b></summary><p class="sub" style="margin-top:6px">คัดลอกคอลัมน์ (${b.h}) จาก Excel/Google Sheets มาวางในช่องนี้ หรือเลือกไฟล์ CSV (บันทึกแบบ UTF-8)</p><textarea id="bt" rows="6" oninput="bp('${k}')" placeholder="${b.ph}"></textarea><div class="row" style="margin-top:8px"><label>เลือกไฟล์ CSV / TXT<input type="file" accept=".csv,.txt,.tsv" onchange="bf(this,'${k}')"></label><button class="btn ghost" onclick="btpl('${k}')">ดาวน์โหลดไฟล์ตัวอย่าง</button></div><div id="bv" style="margin:10px 0"></div><button class="btn" id="bb" onclick="bgo('${k}')" disabled>นำเข้า</button></details>`}
-const brows=t=>{let r=t.split(/\r?\n/).map(l=>l.split(/\t|,|;/).map(x=>x.trim().replace(/^"|"$/g,''))).filter(r=>r.some(x=>x));if(r.length&&/^(รหัส|ชื่อ|name|code)/i.test(r[0][0]))r.shift();return r};
+const brows=t=>{let r=t.split(/\r?\n/).map(l=>l.split(/\t|,|;/).map(x=>x.trim().replace(/^"|"$/g,''))).filter(r=>r.some(x=>x));if(r.length&&/^(รหัส|ชื่อ|ชั้น|name|code|class)/i.test(r[0][0]))r.shift();return r};
 const genPin=u=>{let p;do{p=String(crypto.getRandomValues(new Uint32Array(1))[0]%900000+100000)}while(u.has(p));u.add(p);return p};
+const SX=v=>/^(ช|ชาย|m|male)$/i.test(v)?'ช':/^(ญ|หญิง|f|female)$/i.test(v)?'ญ':'';
+const PF={'ด.ช.':'เด็กชาย','ดช.':'เด็กชาย','ด.ญ.':'เด็กหญิง','ดญ.':'เด็กหญิง','น.ส.':'นางสาว','นส.':'นางสาว'},PS={'เด็กชาย':'ช','นาย':'ช','เด็กหญิง':'ญ','นางสาว':'ญ','นาง':'ญ'};
+const ncls=(g,r)=>{g=(g||'').replace(/\s/g,'');r=(r||'').replace(/\s/g,'');if(/^\d+$/.test(g))g='ป.'+g;else g=g.replace(/^ป\.?(\d+)$/,'ป.$1');r=r.replace(/^0+(?=\d)/,'');return r&&!g.includes('/')?g+'/'+r:g};
+// อ่านหนึ่งแถว: 7 ช่อง (ชั้น,ห้อง,เลขประจำตัว,เพศ,คำนำหน้า,ชื่อ,นามสกุล) หรือรูปแบบเดิม 3 ช่อง (รหัส,ชื่อ-สกุล,ชั้น)
+function srow(r){let code,name,cls;
+ if(r.length>=7){const[g,rm,c,sx,pf,fn,ln]=r,p=PF[pf]||pf,s=SX(sx);
+  if(!fn)return{err:'ไม่มีชื่อ: '+r.join(' ')};
+  if(!g)return{err:'ไม่มีชั้น: '+fn+' '+ln};
+  if(sx&&!s)return{err:'เพศไม่ถูกต้อง ('+sx+'): '+fn+' '+ln};
+  if(s&&PS[p]&&PS[p]!=s)return{err:'คำนำหน้ากับเพศไม่ตรงกัน: '+p+fn+' '+ln};
+  code=c;name=(p||'')+fn+(ln?' '+ln:'');cls=ncls(g,rm)}
+ else if(r.length>3)return{err:'คอลัมน์ไม่ครบ 7 ช่อง: '+r.join(' ')};
+ else[code,name,cls]=r.length>=3?r:['',r[0],r[1]];
+ if(!name)return{err:r.join(' ')};
+ return{o:{id:uid(),code:code||'',name,cls:cls||'-'}}}
 function plan(k,t){const ok=[],dup=[],bad=[],rows=brows(t);
- if(k=='s'){const key=x=>x.code?'c'+x.code:'n'+x.name+'|'+x.cls,seen=new Set(D.st.map(key));rows.forEach(r=>{const[code,name,cls]=r.length>=3?r:['',r[0],r[1]],o={id:uid(),code:code||'',name,cls:cls||'-'};if(!name)return bad.push(r.join(' '));if(seen.has(key(o)))return dup.push(o);seen.add(key(o));ok.push(o)})}
+ if(k=='s'){const key=x=>x.code?'c'+x.code:'n'+x.name+'|'+x.cls,seen=new Set(D.st.map(key));rows.forEach(r=>{const x=srow(r);if(x.err)return bad.push(x.err);const o=x.o;if(seen.has(key(o)))return dup.push(o);seen.add(key(o));ok.push(o)})}
  else{const used=new Set(D.tc.map(x=>x.pin)),names=new Set(D.tc.map(x=>x.name));rows.forEach(r=>{const o={id:uid(),name:r[0],cls:r[1]||'',pin:r[2]||''};if(!o.name)return bad.push(r.join(' '));if(names.has(o.name))return dup.push(o);if(o.pin&&(!/^\w{4,12}$/.test(o.pin)||used.has(o.pin))){o.why='PIN ไม่ถูกต้อง/ซ้ำ';return bad.push(o.name+' ('+o.why+')')}if(o.pin)used.add(o.pin);names.add(o.name);ok.push(o)});ok.forEach(o=>{if(!o.pin)o.pin=genPin(used)})}
  return{ok,dup,bad}}
-function bp(k){const p=plan(k,$('#bt').value),n=p.ok.length;$('#bv').innerHTML=($('#bt').value.trim()?`<span class="bd ok">นำเข้าได้ ${n} รายการ</span> <span class="bd mu">ซ้ำ/ข้าม ${p.dup.length}</span> <span class="bd ${p.bad.length?'bad':'mu'}">ผิดรูปแบบ ${p.bad.length}</span>`+(n?`<div class="wrap"><table class="tb">${p.ok.slice(0,5).map(o=>`<tr><td>${esc(o.code||o.name)}</td><td>${esc(o.code?o.name:o.cls)}</td><td>${esc(o.code?o.cls:o.pin)}</td></tr>`).join('')}</table>${n>5?'<small>… และอีก '+(n-5)+' รายการ</small>':''}</div>`:''):'');$('#bb').disabled=!n}
+function bp(k){const p=plan(k,$('#bt').value),n=p.ok.length;$('#bv').innerHTML=($('#bt').value.trim()?`<span class="bd ok">นำเข้าได้ ${n} รายการ</span> <span class="bd mu">ซ้ำ/ข้าม ${p.dup.length}</span> <span class="bd ${p.bad.length?'bad':'mu'}">ผิดรูปแบบ ${p.bad.length}</span>${p.bad.length?`<div class="sub" style="color:var(--bad)">${p.bad.slice(0,5).map(esc).join('<br>')}${p.bad.length>5?'<br>… อีก '+(p.bad.length-5)+' แถว':''}</div>`:''}`+(n?`<div class="wrap"><table class="tb">${p.ok.slice(0,5).map(o=>`<tr><td>${esc(o.code||o.name)}</td><td>${esc(o.code?o.name:o.cls)}</td><td>${esc(o.code?o.cls:o.pin)}</td></tr>`).join('')}</table>${n>5?'<small>… และอีก '+(n-5)+' รายการ</small>':''}</div>`:''):'');$('#bb').disabled=!n}
 function bf(i,k){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$('#bt').value=r.result.replace(/^\uFEFF/,'');bp(k)};r.readAsText(f)}
 function btpl(k){dl('template-'+(k=='s'?'students':'teachers')+'.csv',BK[k].tpl)}
 function dl(name,rows){const q=s=>'"'+String(s==null?'':s).replace(/"/g,'""')+'"',a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+rows.map(r=>r.map(q).join(',')).join('\n')],{type:'text/csv'}));a.download=name;a.click()}
