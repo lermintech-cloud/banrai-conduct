@@ -1,0 +1,102 @@
+/* ธีม iOS Settings (Cupertino / Apple HIG · Inset Grouped List)
+   โหลดต่อจาก style.css เพื่อทับหน้าตา — ลบไฟล์นี้ออกจาก index.html จะกลับเป็นธีมเดิม
+   ชิ้นส่วน: ช่องกรอกไร้กรอบชิดขวา · Segmented Control · Toggle Switch · Bottom Sheet · Search Bar */
+:root{--bg:#F2F2F7;--card:#fff;--tx:#000;--mu:#8E8E93;--bd:#C6C6C8;--sep:rgba(60,60,67,.29);--pri:#007AFF;--pri2:#007AFF;--ok:#34C759;--wn:#FF9500;--bad:#FF3B30;--okb:#E3F9E9;--wnb:#FFF2DE;--badb:#FFE5E3;--mub:#E5E5EA;--fill:rgba(118,118,128,.12)}
+body{font:17px/1.4 -apple-system,BlinkMacSystemFont,'SF Pro Text','Sarabun',sans-serif;letter-spacing:-.2px;-webkit-font-smoothing:antialiased}
+h1{font-size:32px;font-weight:700;letter-spacing:.3px;margin:4px 0 2px}.sub{font-size:13px;color:var(--mu);margin:0 0 14px}
+h3{font-size:13px;font-weight:400;text-transform:uppercase;color:var(--mu);letter-spacing:0;margin:0 0 8px}
+
+/* แถบข้าง = รายการตั้งค่า iOS */
+.side{background:var(--bg);border-right:.5px solid var(--sep)}
+.brand{background:#fff;border-radius:12px;padding:12px;margin-bottom:18px}.logo{border-radius:12px;box-shadow:none;border:.5px solid var(--sep)}
+.nav{background:#fff;border-radius:12px;overflow:hidden}
+.nav button{border-radius:0;margin:0;padding:8px 14px;gap:14px;color:#000;font-weight:400;position:relative}
+.nav button:not(:last-child)::after{content:"";position:absolute;left:58px;right:0;bottom:0;border-bottom:.5px solid var(--sep)}
+.nav button::before{content:"›";order:3;margin-left:auto;color:#C4C4C7;font-size:22px;line-height:1}
+.nav button span{width:29px;height:29px;border-radius:7px;font-size:16px;background:#8E8E93}
+.nav button:nth-child(1) span{background:#007AFF}.nav button:nth-child(2) span{background:#FF3B30}.nav button:nth-child(3) span{background:#34C759}.nav button:nth-child(4) span{background:#FF9500}.nav button:nth-child(5) span{background:#5856D6}.nav button:nth-child(6) span{background:#AF52DE}.nav button:nth-child(7) span{background:#FFCC00}.nav button:nth-child(8) span{background:#30B0C7}.nav button:nth-child(9) span{background:#8E8E93}
+.nav button:hover{background:#E5E5EA}.nav button.on{background:#D1D1D6;color:#000;box-shadow:none}.side .foot{background:transparent;padding:10px 4px}
+.top{background:rgba(249,249,249,.94);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:.5px solid var(--sep)}
+.top button{background:none;color:var(--pri);font-size:24px}
+body::before{background:rgba(249,249,249,.94)}
+
+/* การ์ด = กล่อง inset grouped */
+.card,.kpi{border:0;border-radius:12px;box-shadow:none;padding:16px}
+.card{margin-bottom:22px}
+.hero{background:#fff;color:#000;border-radius:12px;box-shadow:none;padding:20px}.hero::after{display:none}
+.hero small{color:var(--mu)}.hero .big{color:var(--pri);font-size:56px}.hero .btn.ghost{background:var(--fill);color:var(--pri)}
+.kpi::before{width:36px;height:36px;border-radius:9px;font-size:19px}
+.kpi:nth-child(1)::before{background:#007AFF}.kpi:nth-child(2)::before{background:#FF9500}.kpi:nth-child(3)::before{background:#34C759}.kpi:nth-child(4)::before{background:#5856D6}
+.kpi{padding-left:66px}.kpi small{font-size:13px}
+
+/* ฟอร์ม: แต่ละช่อง = 1 แถว ชื่อซ้าย ค่าชิดขวา (Borderless Inline / Right-aligned Input) */
+.fm,.row{display:flex;flex-direction:column;gap:0;align-items:stretch;margin:0 -16px 14px}
+.card>.fm:first-child,.card>.row:first-child{margin-top:-16px}
+.fm label,.row label{flex-direction:row;align-items:center;justify-content:space-between;gap:12px;min-height:44px;padding:6px 16px;margin:0;font-size:17px;color:#000;min-width:0;position:relative}
+.fm label::after,.row label::after{content:"";position:absolute;left:16px;right:0;bottom:0;border-bottom:.5px solid var(--sep)}
+.fm .w{flex-direction:column;align-items:stretch;gap:4px}
+.fm input,.fm select,.row input,.row select{flex:1;min-width:0;max-width:62%;border:0;background:transparent;padding:6px 0;text-align:right;text-align-last:right;color:var(--mu);border-radius:0;box-shadow:none!important}
+.fm select,.row select{-webkit-appearance:none;appearance:none;padding-right:18px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='14' viewBox='0 0 9 14'%3E%3Cpath d='M1 1l3.5 3L8 1M1 13l3.5-3L8 13' fill='none' stroke='%23C4C4C7' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") right center/9px 14px no-repeat;cursor:pointer}
+.fm select[multiple],.row select[multiple]{background:#fff;text-align:left;text-align-last:auto;max-width:none;padding:0;color:#000}
+.fm input[readonly]{color:var(--mu)}
+.fm textarea,.row textarea,textarea{border:0;background:var(--fill);border-radius:10px;padding:10px 12px;color:#000}
+input:focus,select:focus,textarea:focus{box-shadow:none;border-color:transparent}
+.fm input:focus,.row input:focus{color:var(--pri)}
+.row>.btn{margin:12px 16px 0;align-self:stretch}
+.row>label:last-of-type::after{display:none}
+input,select{background:#fff;border:0;border-radius:10px}
+.card>p:last-child{margin-bottom:0}
+
+/* ปุ่มแบบ iOS */
+.btn{border-radius:12px;background:var(--pri);box-shadow:none;font-weight:600;padding:12px 20px;font-size:17px}
+.btn:active{opacity:.6}.btn.gold{background:var(--pri);color:#fff;box-shadow:none}.btn.red{background:var(--bad)}
+.btn.ghost{background:var(--fill);color:var(--pri);font-weight:500;padding:7px 14px;font-size:15px;border-radius:99px}
+.btn:disabled{opacity:.35}
+
+/* ตาราง = รายการคั่นเส้นบาง */
+.tb{font-size:16px}.tb th{font-size:13px;font-weight:400;text-transform:uppercase;color:var(--mu);border-bottom:.5px solid var(--sep)}.tb td{border-bottom:.5px solid var(--sep);vertical-align:middle}
+.tb tr:last-child td{border-bottom:0}
+.bd{font-weight:500;border-radius:6px}.bar{height:6px;background:var(--mub)}.bar i{background:var(--ok)}
+
+/* Toggle Switch แทน Checkbox */
+input[type=checkbox]{-webkit-appearance:none;appearance:none;width:51px!important;height:31px;flex:none!important;max-width:none!important;border-radius:99px;background:#E9E9EA;position:relative;cursor:pointer;transition:background .2s;padding:0;margin:0;vertical-align:middle}
+input[type=checkbox]::before{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,.15),0 1px 1px rgba(0,0,0,.16);transition:transform .2s}
+input[type=checkbox]:checked{background:var(--ok)}input[type=checkbox]:checked::before{transform:translateX(20px)}
+.row label span:has(input[type=checkbox]){display:flex;flex:1;flex-direction:row-reverse;justify-content:space-between;align-items:center;gap:10px}
+.row label:has(input[type=checkbox]){flex:none!important}
+
+/* Segmented Control แทน Radio/ตัวเลือกสั้น */
+.seg{display:flex;background:var(--fill);border-radius:9px;padding:2px;gap:0;flex:0 1 auto;max-width:70%}
+.seg button{flex:1;border:0;background:none;font:inherit;font-size:13px;font-weight:500;padding:5px 12px;border-radius:7px;color:#000;cursor:pointer;white-space:nowrap}
+.seg button.on{background:#fff;box-shadow:0 3px 8px rgba(0,0,0,.12),0 3px 1px rgba(0,0,0,.04);font-weight:600}
+.seg+select{display:none}
+
+/* แถวเลือกแบบเปิด Bottom Sheet */
+.shb{flex:1;min-width:0;max-width:62%;border:0;background:none;font:inherit;color:var(--mu);text-align:right;cursor:pointer;padding:6px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shb::after{content:"  ›";color:#C4C4C7;font-size:20px}
+.shb+select{display:none}
+
+/* Search Bar */
+input.srch{display:block;width:100%;background:var(--fill) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Ccircle cx='6.5' cy='6.5' r='5.2' fill='none' stroke='%238E8E93' stroke-width='1.8'/%3E%3Cpath d='M10.5 10.5l4 4' stroke='%238E8E93' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") 10px center/16px no-repeat;border:0;border-radius:10px;padding:8px 10px 8px 34px;font-size:17px;margin:0 0 14px;-webkit-appearance:none;appearance:none}
+input.srch::placeholder{color:var(--mu)}
+
+/* Bottom Sheet / Action Sheet */
+.sh-ov{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:70;opacity:0;transition:opacity .25s}
+.sh{position:fixed;left:0;right:0;bottom:0;z-index:71;background:var(--bg);border-radius:12px 12px 0 0;max-height:82vh;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .3s cubic-bezier(.2,.8,.2,1);padding-bottom:env(safe-area-inset-bottom,0px);max-width:640px;margin:0 auto}
+.sh.open{transform:none}.sh-ov.open{opacity:1}
+.sh-g{width:36px;height:5px;border-radius:3px;background:#C7C7CC;margin:6px auto 0}
+.sh-h{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 8px}.sh-h b{font-size:17px}
+.sh-h button{border:0;background:none;color:var(--pri);font:inherit;font-weight:600;cursor:pointer}
+.sh .srch{margin:0 16px 10px;width:auto}
+.sh-l{overflow:auto;-webkit-overflow-scrolling:touch;padding:0 16px 16px}
+.sh-l h4{font-size:13px;font-weight:400;color:var(--mu);text-transform:uppercase;margin:14px 0 6px 16px}
+.sh-l .grp{background:#fff;border-radius:12px;overflow:hidden}
+.sh-l .grp button{display:flex;width:100%;justify-content:space-between;align-items:center;border:0;background:#fff;font:inherit;text-align:left;padding:11px 16px;cursor:pointer;position:relative;color:#000}
+.sh-l .grp button:not(:last-child)::after{content:"";position:absolute;left:16px;right:0;bottom:0;border-bottom:.5px solid var(--sep)}
+.sh-l .grp button:active{background:#D1D1D6}.sh-l .grp button.on::before{content:"✓";order:2;color:var(--pri);font-weight:600}
+.sh-l .none{text-align:center;color:var(--mu);padding:24px}
+
+.toast{background:rgba(30,30,30,.92);border-radius:14px;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+details summary{cursor:pointer;color:var(--pri);padding:6px 0}
+.lg .card{padding:24px}
+@media(max-width:900px){.main{padding:12px 16px 40px}h1{font-size:28px}}
